@@ -1,0 +1,35 @@
+version: 2
+jobs:
+  build:
+    docker: circleci/node
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn build
+  test:
+    docker: circleci/node
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn test
+  deploy:
+    docker: circleci/node
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn build
+      - run: ./node_modules/.bin/firebase deploy --token "1/08r4tW19jyCu6HNnyGojPCKvVYLWKDy8jhJsRWARDxrq2qGflhRApwM_QBzvmCQY"
+workflows:
+  version: 2
+  check_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
