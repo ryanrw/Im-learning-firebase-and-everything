@@ -6,6 +6,8 @@ const globalCSS = css`
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
+    background: linear-gradient(to right, #485563, #293234);
+    color: #fff;
   }
 `
 
